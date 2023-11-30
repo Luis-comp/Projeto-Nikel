@@ -20,8 +20,17 @@ document.getElementById("transaction-form").addEventListener("submit", function(
     const date = document.getElementById("date-input").value;
     const type = document.querySelector('input[name="type-input"]:checked').value;
 
+    const currentBalance = getTotal() - value; 
+    if (currentBalance < 0) {
+        alert("Atenção! Seu saldo ficará negativo com após esse lançamento.");
+        return;
+    }
+
     data.transactions.unshift({
-        value: value, type: type, description: description, date: date
+        value: value, 
+        type: type, 
+        description: description, 
+        date: date
     });
 
     saveData(data);
@@ -33,7 +42,6 @@ document.getElementById("transaction-form").addEventListener("submit", function(
     getTotal();
 
     alert("Lançamento adicionado com sucesso.");
-
 });
 
 checkLogged();
